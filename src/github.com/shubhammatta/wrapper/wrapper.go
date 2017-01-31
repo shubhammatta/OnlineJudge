@@ -5,6 +5,9 @@ import (
       "os"
       "time"
       "strings"
+      //"strconv"
+      "os/exec"
+      "syscall"
 )
 
 type file struct{
@@ -38,6 +41,40 @@ func detect_lang(s string) int{
 }
 
 
+func compile_code(path string, number int)  {
+    //binary := strconv.Itoa(number)
+    binary, lookErr := exec.LookPath("ls")
+    if lookErr != nil {
+        panic(lookErr)
+    }
+    args := []string{ "-a", "-l", "-h"}
+    env := os.Environ()
+    fmt.Println(binary)
+    execErr := syscall.Exec(binary, args, env)
+    if execErr != nil {
+        panic(execErr)
+    }
+}
+
+func compile_code1(path string, number int)  {
+    //binary := strconv.Itoa(number)
+    var (
+		cmdOut []byte
+		err    error
+	)
+	cmdName := "ls"
+	cmdArgs := []string{"-l", "-a", "-h"}
+	if cmdOut, err = exec.Command(cmdName, cmdArgs...).Output(); err != nil {
+		fmt.Fprintln(os.Stderr, "There was an error running git rev-parse command: ", err)
+		os.Exit(1)
+	}
+	sha := string(cmdOut)
+	//firstSix := sha[:6]
+	fmt.Println(sha)
+}
+
+
+
 
 func main(){
     arguments := os.Args
@@ -46,6 +83,5 @@ func main(){
     f.file_name = os.Args[1]
     f.file_path = os.Args[2]
     fmt.Println(detect_lang(f.file_name))
-
-        fmt.Println("Main commit");
+    compile_code1("sff",44)
 }
