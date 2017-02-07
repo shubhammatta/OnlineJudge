@@ -64,11 +64,12 @@ func compile_code_cpp(path string, number string , name string)  {
 		err    error
 	)
 	cmdName := "g++"
-    cmdArgs := []string{path, "-o" , number}
+    cmdArgs := []string{path, "-std=c++14" , "-o" , number}
     cmd := exec.Command(cmdName , cmdArgs...)
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
-	if  err = cmd.Run(); err != nil {
+    err = cmd.Run()
+	if  err != nil {
 		fmt.Fprintln(os.Stderr, "There was an error compiling ", err)
 		os.Exit(1)
 	}
