@@ -13,12 +13,12 @@ import (
 type file struct{
     file_name            string
     file_path           string
-    number              int
+    sub_number          string
     result              int8
     username            string
     timestamp           time.Time
     currTestcase        int
-    language            string
+    language            int
 }
 
 //0 - C ,  1 - C++ , 2 -  Java  , 3 - Python
@@ -56,16 +56,25 @@ func compile_code(path string, number int)  {
     }
 }
 
-func compile_code1(path string, number int)  {
+func compile_code_cpp(path string, number string , name string)  {
     //binary := strconv.Itoa(number)
     var (
 		cmdOut []byte
 		err    error
 	)
-	cmdName := "ls"
-	cmdArgs := []string{"-l", "-a", "-h"}
+	cmdName := "g++"
+	//cmdArgs := []string{path , "-o" , name}
+    cmdArgs := []string{path, "-o" , number}
+    //fmt.Println(path, name)
+	if  cmdOut ,err = exec.Command(cmdName, cmdArgs...).Output(); err != nil {
+		fmt.Fprintln(os.Stderr, "There was an error compiling ", err)
+		os.Exit(1)
+	}
+    fmt.Println(string(cmdOut) , "\n")
+    cmdName = "ls"
+	cmdArgs = []string{"-l", "-a", "-h"}
 	if cmdOut, err = exec.Command(cmdName, cmdArgs...).Output(); err != nil {
-		fmt.Fprintln(os.Stderr, "There was an error running git rev-parse command: ", err)
+		fmt.Fprintln(os.Stderr, "There was an error", err)
 		os.Exit(1)
 	}
 	sha := string(cmdOut)
@@ -82,6 +91,7 @@ func main(){
     f := file{}
     f.file_name = os.Args[1]
     f.file_path = os.Args[2]
-    fmt.Println(detect_lang(f.file_name))
-    compile_code1("sff",44)
+    f.sub_number = os.Args[3]
+    f.language = detect_lang(f.file_name)
+    compile_code_cpp(f.file_path, f.sub_number, f.file_name )
 }

@@ -1,0 +1,5 @@
+total 12K
+drwxrwxr-x 3 jarvis jarvis 4.0K Feb  1 03:11 .
+drwxrwxr-x 5 jarvis jarvis 4.0K Jan 31 15:35 ..
+drwxrwxr-x 3 jarvis jarvis 4.0K Jan 31 15:35 github.com
+-rw-rw-r-- 1 jarvis jarvis    0 Feb  1 03:11 ot.txt
