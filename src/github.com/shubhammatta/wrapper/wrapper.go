@@ -63,7 +63,7 @@ func compile_code_cpp(path string, number string , name string)  {
 		err    error
 	)
 	cmdName := "g++"
-    cmdArgs := []string{path, "-std=c++14" , "-o" , number}
+    cmdArgs := []string{path, "-std=c++14" , "-o" , path[:len(path)-4]}
     cmd := exec.Command(cmdName , cmdArgs...)
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
@@ -72,6 +72,17 @@ func compile_code_cpp(path string, number string , name string)  {
 		fmt.Fprintln(os.Stderr, "There was an error compiling ", err)
 		os.Exit(1)
 	}
+    //fmt.Println("Code Compiled Successfully\n")
+    cmdName = path[:len(path)-4]
+    cmdArgs = []string{" < in.txt"}
+    cmd = exec.Command(cmdName , cmdArgs...)
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    err = cmd.Run()
+    if err != nil{
+        fmt.Fprintln(os.Stderr , "Error Running ", err)
+        os.Exit(1)
+    }
     //fmt.Println(string(cmdOut) , "\n")
     cmdName = "ls"
 	cmdArgs = []string{"-l", "-a", "-h"}
