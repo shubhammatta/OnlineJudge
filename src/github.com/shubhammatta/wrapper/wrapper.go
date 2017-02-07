@@ -8,6 +8,7 @@ import (
       //"strconv"
       "os/exec"
       "syscall"
+     // "io/ioutil"
 )
 
 type file struct{
@@ -63,10 +64,11 @@ func compile_code_cpp(path string, number string , name string)  {
 		err    error
 	)
 	cmdName := "g++"
-	//cmdArgs := []string{path , "-o" , name}
     cmdArgs := []string{path, "-o" , number}
-    //fmt.Println(path, name)
-	if  cmdOut ,err = exec.Command(cmdName, cmdArgs...).Output(); err != nil {
+    cmd := exec.Command(cmdName , cmdArgs...)
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+	if  err = cmd.Run(); err != nil {
 		fmt.Fprintln(os.Stderr, "There was an error compiling ", err)
 		os.Exit(1)
 	}
@@ -78,7 +80,6 @@ func compile_code_cpp(path string, number string , name string)  {
 		os.Exit(1)
 	}
 	sha := string(cmdOut)
-	//firstSix := sha[:6]
 	fmt.Println(sha)
 }
 
