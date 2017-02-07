@@ -58,13 +58,38 @@ func compile_code(path string, number int)  {
 }
 
 func compile_code_cpp(path string, number string , name string)  {
-    //binary := strconv.Itoa(number)
     var (
 		cmdOut []byte
 		err    error
 	)
 	cmdName := "g++"
     cmdArgs := []string{path, "-std=c++14" , "-o" , number}
+    cmd := exec.Command(cmdName , cmdArgs...)
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    err = cmd.Run()
+	if  err != nil {
+		fmt.Fprintln(os.Stderr, "There was an error compiling ", err)
+		os.Exit(1)
+	}
+    fmt.Println(string(cmdOut) , "\n")
+    cmdName = "ls"
+	cmdArgs = []string{"-l", "-a", "-h"}
+	if cmdOut, err = exec.Command(cmdName, cmdArgs...).Output(); err != nil {
+		fmt.Fprintln(os.Stderr, "There was an error", err)
+		os.Exit(1)
+	}
+	sha := string(cmdOut)
+	fmt.Println(sha)
+}
+
+func compile_code_python(path string, number string , name string)  {
+    var (
+		cmdOut []byte
+		err    error
+	)
+	cmdName := "python3"
+    cmdArgs := []string{path}
     cmd := exec.Command(cmdName , cmdArgs...)
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
@@ -95,5 +120,10 @@ func main(){
     f.file_path = os.Args[2]
     f.sub_number = os.Args[3]
     f.language = detect_lang(f.file_name)
-    compile_code_cpp(f.file_path, f.sub_number, f.file_name )
+    if(f.language == 0 || f.language == 1) {
+        compile_code_cpp(f.file_path , f.sub_number , f.file_name)
+    }
+    else if(f.language == 3){
+        compile_code_python(f.file_path, f.sub_number, f.file_name )
+    }
 }
