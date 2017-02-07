@@ -7,7 +7,7 @@ import (
       "strings"
       //"strconv"
       "os/exec"
-      "syscall"
+      //"syscall"
      // "io/ioutil"
 )
 
@@ -41,7 +41,7 @@ func detect_lang(s string) int{
     return -1
 }
 
-
+/*
 func compile_code(path string, number int)  {
     //binary := strconv.Itoa(number)
     binary, lookErr := exec.LookPath("ls")
@@ -56,7 +56,7 @@ func compile_code(path string, number int)  {
         panic(execErr)
     }
 }
-
+*/
 func compile_code_cpp(path string, number string , name string)  {
     var (
 		cmdOut []byte
@@ -72,7 +72,7 @@ func compile_code_cpp(path string, number string , name string)  {
 		fmt.Fprintln(os.Stderr, "There was an error compiling ", err)
 		os.Exit(1)
 	}
-    fmt.Println(string(cmdOut) , "\n")
+    //fmt.Println(string(cmdOut) , "\n")
     cmdName = "ls"
 	cmdArgs = []string{"-l", "-a", "-h"}
 	if cmdOut, err = exec.Command(cmdName, cmdArgs...).Output(); err != nil {
@@ -98,7 +98,7 @@ func compile_code_python(path string, number string , name string)  {
 		fmt.Fprintln(os.Stderr, "There was an error compiling ", err)
 		os.Exit(1)
 	}
-    fmt.Println(string(cmdOut) , "\n")
+    //fmt.Println(string(cmdOut) , "\n")
     cmdName = "ls"
 	cmdArgs = []string{"-l", "-a", "-h"}
 	if cmdOut, err = exec.Command(cmdName, cmdArgs...).Output(); err != nil {
@@ -107,6 +107,51 @@ func compile_code_python(path string, number string , name string)  {
 	}
 	sha := string(cmdOut)
 	fmt.Println(sha)
+}
+
+
+func compile_code_java(path string, number string , name string)  {
+    var (
+        cmdOut []byte
+        err    error
+    )
+    cmdName := "javac"
+    cmdArgs := []string{path}
+    cmd := exec.Command(cmdName , cmdArgs...)
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    err = cmd.Run()
+    if  err != nil {
+        fmt.Fprintln(os.Stderr, "There was an error compiling ", err)
+        os.Exit(1)
+    }
+    //fmt.Println(string(cmdOut) , "\n")
+
+    //Run java code
+    cmdName = "java"
+    if(len(path) == len(name)){
+        cmdArgs = []string{path}
+    }else{
+        cmdArgs = []string{"-cp" , path[:len(path)-len(name)] , name[:len(name)-5]}
+    }
+        fmt.Println(cmdArgs)
+    cmd  = exec.Command(cmdName , cmdArgs...)
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    err = cmd.Run()
+    if err!=nil{
+        fmt.Fprintln(os.Stderr , "Error Running ", err)
+        os.Exit(1)
+    }
+    //fmt.Println(cmdOut)
+    cmdName = "ls"
+    cmdArgs = []string{"-l", "-a", "-h"}
+    if cmdOut, err = exec.Command(cmdName, cmdArgs...).Output(); err != nil {
+        fmt.Fprintln(os.Stderr, "There was an error", err)
+        os.Exit(1)
+    }
+    sha := string(cmdOut)
+    fmt.Println(sha)
 }
 
 
@@ -120,10 +165,11 @@ func main(){
     f.file_path = os.Args[2]
     f.sub_number = os.Args[3]
     f.language = detect_lang(f.file_name)
-    if(f.language == 0 || f.language == 1) {
+    if f.language == 0 || f.language == 1  {
         compile_code_cpp(f.file_path , f.sub_number , f.file_name)
-    }
-    else if(f.language == 3){
+    } else if f.language == 3 {
         compile_code_python(f.file_path, f.sub_number, f.file_name )
+    } else if f.language == 2 {
+        compile_code_java(f.file_path , f.sub_number , f.file_name)
     }
 }
