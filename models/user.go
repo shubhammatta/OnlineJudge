@@ -31,7 +31,7 @@ func (u *User) Get(db *mgo.Database, id string) error {
 	if bson.IsObjectIdHex(id) {
 		return db.C("user").FindId(bson.ObjectIdHex(id)).One(&u)
 	} else {
-		return errors.New("It is not ID")
+		return errors.New("It is not an ID")
 	}
 }
 
