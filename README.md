@@ -1,2 +1,2 @@
-# Go-wrapper
-Go wrapper function to run c/c++ code, including features like TLE, Seg Fault error message, banning certain sys calls.
+# OnlineJudge
+**Online Judge** written in **GoLang** with backend supported by **MongoDB** and frontend supported by **AngluarJS** with features like TLE, Segmentation-Fault error message, banning certain system calls and plagiarism check.
