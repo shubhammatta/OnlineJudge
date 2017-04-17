@@ -54,10 +54,9 @@ func (a *Auth) User(w http.ResponseWriter, r *http.Request) {
 	db := utilities.GetDB(r)
 	session := sessions.GetSession(r)
 	user_id := session.Get("user_id")
-	fmt.Println(user_id)
+	//fmt.Println(user_id)
 	if user_id == nil {
 		w.WriteHeader(403)
-
 	} else {
 		user := new(models.User)
 		user.Get(db, user_id.(string))

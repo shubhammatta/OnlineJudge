@@ -3,11 +3,11 @@ package models
 import (
 //	"crypto/md5"
 //	"encoding/hex"
-	"errors"
+//	"errors"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 //	"io"
-	"fmt"
+//	"fmt"
 )
 
 type Assignment struct {
@@ -23,14 +23,13 @@ func (u *Assignment) NewAssignment(db *mgo.Database, name string , uniqueId stri
 	c.Insert(&u)
 }
 
-func (u *Assignment) Get(db *mgo.Database, uniqueId string) error {
-	result := db.C("assignment").Find(bson.M{"UniqueId" : uniqueId}).One(&u)
-	if result != nil {
-		fmt.Println("assignment   " , result)
-		return result
-	} else {
-		return errors.New("Assignment Not found")
+func (u *Assignment) Get(db *mgo.Database, uniqueId string) string {
+	var result Assignment
+	err := db.C("assignment").Find(bson.M{"UniqueId" : uniqueId}).One(&result)
+	if err != nil{
+		panic(err)
 	}
+	return result.ID.String()
 }
 /*
 func (u *User) Authenticate(db *mgo.Database, email string, password string) error {

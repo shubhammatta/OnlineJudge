@@ -6,8 +6,10 @@ import (
 	"encoding/json"
 //	"github.com/gorilla/mux"
 	"net/http"
-//	"fmt"
-//	"gopkg.in/mgo.v2/bson"
+	"fmt"
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
+	"errors"
 )
 
 type Problem struct{}
@@ -60,18 +62,38 @@ func (u *Problem) GetById(db *mgo.Database, id string) error {
 	}
 }
 
-func (u *Problem) get_Assignment(db * mgo.Database , unique_assignment_ID string) error {
-	Assignment := new(models.assignment)
-	AssignmentId := Assignment.GET(db, unique_assignment_ID)
-	result := db.C("problem").Find(bson.M{"assignmentId" : AssignmentId})
+func (u *Problem) get_Assignment(w http.ResponseWriter, r *http.Request){
+	decoder := json.NewDecoder(r.Body)
+	data := map[string]string{"unique_Id": ""}
+	err := decoder.Decode(&data)
+	if err != nil {
+		w.WriteHeader(403)
+	}
+	db := utilities.GetDB(r)
+	Assignment := new(models.Assignment)
+	AssignmentId := Assignment.Get(db, data["unique_Id"])
+	var result []Problem
+	err = db.C("problem").Find(bson.M{"assignmentId" : AssignmentId}).All(&result)
 	fmt.Println(result)
-	if result != nil{
-		return result
-	} else {
-		return errors.New("Not found")
+	if err == nil{
+		outData, _ := json.Marshal(result)
+		w.Write(outData)
+	} else{
+		w.WriteHeader(404)
 	}	
 }
 
 func (u * Problem) create_problem(w http.ResponseWriter, r *http.Request){
-
+	decoder := json.NewDecoder(r.Body)
+	data := map[string]string{"statement": "", "test": "", "unique_assignment": ""}
+	err := decoder.Decode(&data)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(data)
+	db := utilities.GetDB(r)
+	A := new(models.Assignment)
+	Id := A.Get(db , data["unique_assignment"])
+	problem := new(models.Problem)
+	problem.NewProblem(db , data["statement"] , data["test"] , Id)
 }

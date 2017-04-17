@@ -4,7 +4,6 @@ import (
 	"../utilities"
 	"encoding/json"
 	"net/http"
-	"fmt"
 )
 
 type Index struct{}
