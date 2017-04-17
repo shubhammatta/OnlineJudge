@@ -22,7 +22,7 @@ func LoadRoutes() *mux.Router {
 
 	a = router.PathPrefix("/users").Subrouter()
 	a.HandleFunc("/profile", utilities.AuthenticationHandler(user.Profile)).Methods("GET")
-	// Adding code from here
+	// Adding problems code from here
 	a.HandleFunc("/problems", utilities.AuthenticationHandler(user.Problems)).Methods("GET")
 	a.HandleFunc("/{id}", utilities.AuthenticationHandler(user.Get)).Methods("GET")
 
