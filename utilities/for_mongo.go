@@ -2,8 +2,7 @@ package utilities
 
 import (
 	"gopkg.in/mgo.v2"
-	"net/http"
-	
+	"net/http"	
 )
 
 const (
