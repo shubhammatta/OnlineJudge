@@ -4,7 +4,6 @@ lodash.factory('_', function () {
     return window._; // assumes underscore has already been loaded on the page
 });
 
-
 var app = angular.module('App', ['ngRoute', 'ui.bootstrap']);
 
 app.run(function($rootScope,$location,AuthSrv){
@@ -29,7 +28,6 @@ app.run(function($rootScope,$location,AuthSrv){
         }).success(function(){})
     });
 });
-
 
 app.config(function($routeProvider){
     $routeProvider
