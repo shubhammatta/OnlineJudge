@@ -4,14 +4,14 @@ import (
 	"../models"
 	"../utilities"
 	"encoding/json"
-	"github.com/gorilla/mux"
+//	"github.com/gorilla/mux"
 	"net/http"
-	"fmt"
-	"gopkg.in/mgo.v2/bson"
+//	"fmt"
+//	"gopkg.in/mgo.v2/bson"
 )
 
-type User struct{}
-
+type Problem struct{}
+/*
 func (u *User) Get(w http.ResponseWriter, r *http.Request){
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -27,26 +27,27 @@ func (u *User) Get(w http.ResponseWriter, r *http.Request){
 		w.Write(out)
 	}
 }
+*/
 
-func (u *User) Profile(w http.ResponseWriter, r *http.Request){
+
+// Adding code from here
+func (u *Problem) Problems(w http.ResponseWriter, r *http.Request){
 	user_id, _ := utilities.GetUserId(r)
 	db := utilities.GetDB(r)
 	user := new(models.User)
 	user.Get(db, user_id)
 	user.Password = ""
-	fmt.Println(user)
-	type  output struct{
-		ID   bson.ObjectId
-		Name   string
-		Email   string	
-	}
-	value := output {
-		ID : user.ID,
-		Name : user.Name,
-		Email : user.Email,	
-	}
-	out, _ := json.Marshal(value)
+	out, _ := json.Marshal(user)
 	w.Write(out)
 }
 
-
+// Adding code from here
+func (u *Problem) Problem_s(w http.ResponseWriter, r *http.Request){
+	user_id, _ := utilities.GetUserId(r)
+	db := utilities.GetDB(r)
+	user := new(models.User)
+	user.Get(db, user_id)
+	user.Password = ""
+	out, _ := json.Marshal(user)
+	w.Write(out)
+}

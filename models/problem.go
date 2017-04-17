@@ -1,12 +1,9 @@
 package models
 
 import (
-	"crypto/md5"
-	"encoding/hex"
 	"errors"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"io"
 )
 
 type Problem struct {
