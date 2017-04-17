@@ -31,7 +31,6 @@ func (u *User) Get(w http.ResponseWriter, r *http.Request){
 func (u *User) Profile(w http.ResponseWriter, r *http.Request){
 	user_id, _ := utilities.GetUserId(r)
 	db := utilities.GetDB(r)
-	//fmt.Println("My name is SHubham")
 	user := new(models.User)
 	user.Get(db, user_id)
 	user.Password = ""
