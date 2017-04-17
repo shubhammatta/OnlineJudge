@@ -50,7 +50,7 @@ func (u *User) Profile(w http.ResponseWriter, r *http.Request){
 }
 
 // Adding code from here
-func (u *User) Problems(w http.ResponseWriter, r *http.Request){
+func (u *Problem) Problems(w http.ResponseWriter, r *http.Request){
 	user_id, _ := utilities.GetUserId(r)
 	db := utilities.GetDB(r)
 	user := new(models.User)
