@@ -13,6 +13,7 @@ Make sure that **MongoDB** is up and running by using this command : **sudo syst
 The output should look like this :
 
 
+[![Selection_002.png](https://s2.postimg.org/t3sn0iazt/Selection_002.png)](https://postimg.org/image/n2uy3fodh/)
 
 
 Then, in browser, go to this URL : *localhost:8000*
