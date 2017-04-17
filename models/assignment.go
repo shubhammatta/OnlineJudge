@@ -7,6 +7,7 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 //	"io"
+	"fmt"
 )
 
 type Assignment struct {
@@ -25,6 +26,7 @@ func (u *Assignment) NewAssignment(db *mgo.Database, name string , uniqueId stri
 func (u *Assignment) Get(db *mgo.Database, uniqueId string) error {
 	result := db.C("assignment").Find(bson.M{"UniqueId" : uniqueId}).One(&u)
 	if result != nil {
+		fmt.Println("assignment   " , result)
 		return result
 	} else {
 		return errors.New("Assignment Not found")

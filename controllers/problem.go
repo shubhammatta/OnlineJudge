@@ -27,7 +27,7 @@ func (u *User) Get(w http.ResponseWriter, r *http.Request){
 		w.Write(out)
 	}
 }
-*/
+
 
 
 // Adding code from here
@@ -50,4 +50,28 @@ func (u *Problem) Problem_s(w http.ResponseWriter, r *http.Request){
 	user.Password = ""
 	out, _ := json.Marshal(user)
 	w.Write(out)
+}
+*/
+func (u *Problem) GetById(db *mgo.Database, id string) error {
+	if bson.IsObjectIdHex(id) {
+		return db.C("problem").FindId(bson.ObjectIdHex(id)).One(&u)
+	} else {
+		return errors.New("It is not an ID")
+	}
+}
+
+func (u *Problem) get_Assignment(db * mgo.Database , unique_assignment_ID string) error {
+	Assignment := new(models.assignment)
+	AssignmentId := Assignment.GET(db, unique_assignment_ID)
+	result := db.C("problem").Find(bson.M{"assignmentId" : AssignmentId})
+	fmt.Println(result)
+	if result != nil{
+		return result
+	} else {
+		return errors.New("Not found")
+	}	
+}
+
+func (u * Problem) create_problem(w http.ResponseWriter, r *http.Request){
+
 }
