@@ -17,6 +17,5 @@ func main() {
 	//n.Use(negroni.HandlerFunc(MgoMiddleware))
 	n.Use(sessions.Sessions("global_session_store", store))
 	n.UseHandler(router)
-	n.Run(":5000")
+	n.Run(":8000")
 }
-
