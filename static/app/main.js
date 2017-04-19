@@ -56,7 +56,7 @@ app.config(function($routeProvider){
           controller: 'ProblemCtrl'
         })
         
-        .when('/create/assignment',{
+        .when('/create/assignment_1',{
             templateUrl : 'static/app/pages/createAssignment.html',
             controller: 'AssignmentCtrl'
         })

@@ -3,7 +3,7 @@ app.factory('AssgnSrv', function($http){
 
   obj.create = function(data){
     console.log(data)
-    return $http.post('/assignment/create_assignment', data)
+    return $http.post('/create/assignment', data)
   }
   return obj;
 })
