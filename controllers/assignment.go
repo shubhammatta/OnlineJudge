@@ -12,7 +12,7 @@ import (
 
 type Assignment struct{}
 
-func (u * Problem) create_assignment(w http.ResponseWriter, r *http.Request){
+func (u * Assignment) Create_assignment(w http.ResponseWriter, r *http.Request){
 	decoder := json.NewDecoder(r.Body)
 	data := map[string]string{"name": "",  "unique_assignment": ""}
 	err := decoder.Decode(&data)

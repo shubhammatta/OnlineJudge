@@ -14,6 +14,5 @@ app.factory('AuthSrv', function($http){
   obj.auth_user = function(){
     return $http.get('/auth/user')
   }
-
   return obj;
 })

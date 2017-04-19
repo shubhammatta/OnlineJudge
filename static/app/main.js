@@ -55,4 +55,9 @@ app.config(function($routeProvider){
           templateUrl: '/static/app/pages/problems.html',
           controller: 'ProblemCtrl'
         })
+        
+        .when('/create/assignment',{
+            templateUrl : 'static/app/pages/createAssignment.html',
+            controller: 'AssignmentCtrl'
+        })
 });

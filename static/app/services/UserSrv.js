@@ -5,8 +5,8 @@ app.factory('UserSrv', function($http){
     return $http.get('/users/profile')
   }
 
-  obj.show_problems = function(){
-    return $http.post('/users/problems',data)
-  }
+  // obj.show_problems = function(){
+  //   return $http.post('/users/problems',data)
+  // }
   return obj;
 })
