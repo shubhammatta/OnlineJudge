@@ -11,6 +11,7 @@ func LoadRoutes() *mux.Router {
 	auth := controllers.Auth{}
 	user := controllers.User{}
 	assignment := controllers.Assignment{}
+	problem := controllers.Problem{}
 	router := mux.NewRouter()
 	router.HandleFunc("/", index.Welcome).Methods("GET")
 	router.HandleFunc("/sitemap", index.Sitemap)
@@ -28,5 +29,6 @@ func LoadRoutes() *mux.Router {
 	a.HandleFunc("/{id}", utilities.AuthenticationHandler(user.Get)).Methods("GET")
 	a = router.PathPrefix("/create").Subrouter()
 	a.HandleFunc("/assignment", utilities.AuthenticationHandler(assignment.Create_assignment)).Methods("POST")
+	a.HandleFunc("/problem",  utilities.AuthenticationHandler(problem.Create_problem)).Methods("POST")
 	return router
 }

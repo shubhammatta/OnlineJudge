@@ -1,0 +1,17 @@
+<br> <br>
+<style>
+.box { width: 150px; height: 150px; }
+</style>
+<div>
+    <form>
+
+                Problem Statement <br>
+                <textarea class="input" ng-model="problem.statement" rows="10" cols="100">Some text here...</textarea>
+                <br>
+                Problem Tests<br>
+                <textarea class="input" ng-model="problem.test" rows="10" cols="100">Test cases</textarea><br>
+                Unique ID ([Course ID] [Passcode])<br>
+                <input type="text" ng-model="problem.uniqueId"><br>
+                <button ng-click="save(problem)"> Create </button>
+    </form>
+   </div>

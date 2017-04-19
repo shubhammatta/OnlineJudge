@@ -51,13 +51,17 @@ app.config(function($routeProvider){
           controller: 'ProfileCtrl'
         })
 
-        .when('/users/problems', {
-          templateUrl: '/static/app/pages/problems.html',
-          controller: 'ProblemCtrl'
-        })
+        // .when('/users/problems', {
+        //   templateUrl: '/static/app/pages/problems.html',
+        //   controller: 'ProblemCtrl'
+        // })
         
         .when('/create/assignment_1',{
             templateUrl : 'static/app/pages/createAssignment.html',
             controller: 'AssignmentCtrl'
+        })
+        .when('/create/problem',{
+            templateUrl : 'static/app/pages/createProblem.html',
+            controller  : 'ProblemCtrl'
         })
 });

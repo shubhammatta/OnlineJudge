@@ -10,7 +10,7 @@ import (
 
 type Problem struct {
 	ID       bson.ObjectId `bson:"_id,omitempty"`
-	Statement     string        `bson:"name"`
+	Statement     string        `bson:"statement"`
 	Tests         string        `bson:"test"`
 	AssignmentId  string		`bson:"assignmentId"`
 }

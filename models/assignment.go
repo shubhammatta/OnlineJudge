@@ -7,7 +7,7 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 //	"io"
-//	"fmt"
+	"fmt"
 )
 
 type Assignment struct {
@@ -25,11 +25,14 @@ func (u *Assignment) NewAssignment(db *mgo.Database, name string , uniqueId stri
 
 func (u *Assignment) Get(db *mgo.Database, uniqueId string) string {
 	var result Assignment
-	err := db.C("assignment").Find(bson.M{"UniqueId" : uniqueId}).One(&result)
+	err := db.C("assignment").Find(bson.M{"uniqueid" : uniqueId}).One(&result)
 	if err != nil{
+		//fmt.Println("error is\n")
+		//fmt.Println(err)
+		//fmt.Println(uniqueId)
 		panic(err)
 	}
-	return result.ID.String()
+	return result.ID.Hex()
 }
 /*
 func (u *User) Authenticate(db *mgo.Database, email string, password string) error {
