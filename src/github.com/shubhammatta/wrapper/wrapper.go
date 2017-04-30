@@ -5,10 +5,7 @@ import (
       "os"
       "time"
       "strings"
-      //"strconv"
       "os/exec"
-      //"syscall"
-     // "io/ioutil"
 )
 
 type file struct{
@@ -164,9 +161,6 @@ func compile_code_java(path string, number string , name string)  {
     sha := string(cmdOut)
     fmt.Println(sha)
 }
-
-
-
 
 func main(){
     arguments := os.Args
