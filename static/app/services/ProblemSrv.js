@@ -3,7 +3,7 @@ app.factory('Problemsrv', function($http){
 
   obj.create = function(data){
     console.log(data)
-    return $http.post('/create/problem', data)
+    return $http.post('/creates/problem', data)
   }
   return obj;
 })
