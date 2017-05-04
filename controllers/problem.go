@@ -85,7 +85,7 @@ func (u *Problem) Get_Assignment(w http.ResponseWriter, r *http.Request){
 
 func (u * Problem) Create_problem(w http.ResponseWriter, r *http.Request){
 	decoder := json.NewDecoder(r.Body)
-	data := map[string]string{"statement": "", "test": "", "unique_assignment": ""}
+	data := map[string]string{"name" : "" , "statement": "", "test": "" , "output" : "" , "unique_assignment": ""}
 	err := decoder.Decode(&data)
 	if err != nil {
 		panic(err)
@@ -96,5 +96,5 @@ func (u * Problem) Create_problem(w http.ResponseWriter, r *http.Request){
 	Id := A.Get(db , data["unique_assignment"])
 	problem := new(models.Problem)
 	fmt.Println("herw e %T" , Id)
-	problem.NewProblem(db , data["statement"] , data["test"] , Id)
+	problem.NewProblem(db ,data["name"] ,  data["statement"] , data["test"] , data["output"] , Id)
 }

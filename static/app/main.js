@@ -64,4 +64,5 @@ app.config(function($routeProvider){
             templateUrl : 'static/app/pages/createProblem.html',
             controller  : 'ProblemCtrl'
         })
+        
 });
