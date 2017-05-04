@@ -4,7 +4,7 @@ import (
 	"../models"
 	"../utilities"
 	"encoding/json"
-//	"github.com/gorilla/mux"
+	// "github.com/gorilla/mux"
 	"net/http"
 	"fmt"
 
@@ -24,3 +24,17 @@ func (u * Assignment) Create_assignment(w http.ResponseWriter, r *http.Request){
 	A := new(models.Assignment)
 	A.NewAssignment(db , data["name"] , data["unique_assignment"])
 }
+
+// func (u * Assignment) Get(w http.ResponseWriter, r *http.Request){
+// 	vars = mux.Vars(r)
+// 	id := vars["id"]
+// 	db := utilities.GetDB(r)
+// 	assignment := new(models.Assignment)
+// 	err := assignment.Get(db , id)
+// 	if err != nil{
+// 		w.WriteHeader(404)
+// 	}else{
+// 		w.write(assignment)
+// 	}
+
+// }

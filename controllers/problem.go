@@ -4,7 +4,7 @@ import (
 	"../models"
 	"../utilities"
 	"encoding/json"
-//	"github.com/gorilla/mux"
+	"github.com/gorilla/mux"
 	"net/http"
 	"fmt"
 	"gopkg.in/mgo.v2"
@@ -63,17 +63,13 @@ func (u *Problem) GetById(db *mgo.Database, id string) error {
 }
 
 func (u *Problem) Get_Assignment(w http.ResponseWriter, r *http.Request){
-	decoder := json.NewDecoder(r.Body)
-	data := map[string]string{"unique_Id": ""}
-	err := decoder.Decode(&data)
-	if err != nil {
-		w.WriteHeader(403)
-	}
+	vars := mux.Vars(r)
+	id := vars["id"]
 	db := utilities.GetDB(r)
 	Assignment := new(models.Assignment)
-	AssignmentId := Assignment.Get(db, data["unique_Id"])
+	AssignmentId := Assignment.Get(db,id)
 	var result []Problem
-	err = db.C("problem").Find(bson.M{"assignmentId" : AssignmentId}).All(&result)
+	err := db.C("problem").Find(bson.M{"assignmentId" : AssignmentId}).All(&result)
 	fmt.Println(result)
 	if err == nil{
 		outData, _ := json.Marshal(result)

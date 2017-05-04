@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="static/app/controller/ShowProblemCtrl.js"></script>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+<body>
+<div id= "check">
+</div>
+{{problems}}
+
+<table>
+  <tr ng-repeat="u in problems">
+    <td><a href = "/problem/{{u.ID}}" >{{ u.Name }}</a>
+    </td>
+  </tr>
+</table>
+
+</body>
+

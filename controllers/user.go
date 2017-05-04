@@ -15,7 +15,7 @@ type User struct{}
 func (u *User) Get(w http.ResponseWriter, r *http.Request){
 	vars := mux.Vars(r)
 	id := vars["id"]
-
+ 
 	db := utilities.GetDB(r)
 	user := new(models.User)
 	err := user.Get(db, id)
