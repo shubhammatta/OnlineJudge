@@ -66,6 +66,6 @@ app.config(function($routeProvider){
         })
         .when('/assignment/:id',{
             templateUrl : 'static/app/pages/show_problems.html',
-            controller :  'ShowProblemCtrl'
+            controller :  'ShowAssignmentCtrl'
         })
 });

@@ -24,6 +24,7 @@ func (u * Submission) create_submission(w http.ResponseWriter, r *http.Request){
 	db := utilities.GetDB(r)
 	A := new(models.Submission)
 	A.NewSubmission(db , data["problemId"] , data["userId"])
+	
 }
 
 func (u * Submission) get_submission_by_user(w http.ResponseWriter , r * http.Request) {
