@@ -24,10 +24,11 @@ func LoadRoutes() *mux.Router {
 
 	a = router.PathPrefix("/users").Subrouter()
 	a.HandleFunc("/profile", utilities.AuthenticationHandler(user.Profile)).Methods("GET")
-	// Adding problems code from here
+	// Adding problem-submission code from here
 	a.HandleFunc("/assignment", utilities.AuthenticationHandler(user.Profile)).Methods("GET")
 	a.HandleFunc("/{id}", utilities.AuthenticationHandler(user.Get)).Methods("GET")
 	a = router.PathPrefix("/create").Subrouter()
+	// Adding assignment-submission code from here
 	a.HandleFunc("/assignment", utilities.AuthenticationHandler(assignment.Create_assignment)).Methods("POST")
 	a.HandleFunc("/problem",  utilities.AuthenticationHandler(problem.Create_problem)).Methods("POST")
 	router.HandleFunc("/assignment/{id}", utilities.AuthenticationHandler(problem.Get_Assignment)).Methods("GET")
